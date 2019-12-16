@@ -64,6 +64,7 @@ public class DocPanel extends JPanel {
 		rdbtnGpl.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				customLicenseTF.setEnabled(false);
+				changelogManager.setLincenseGPL();
 			}
 		});
 		rdbtnGpl.setBounds(22, 35, 56, 23);
@@ -74,6 +75,7 @@ public class DocPanel extends JPanel {
 		rdbtnLgpl.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				customLicenseTF.setEnabled(false);
+				changelogManager.setLincenseLGPL();
 			}
 		});
 		rdbtnLgpl.setBounds(22, 60, 56, 23);
@@ -96,6 +98,7 @@ public class DocPanel extends JPanel {
 
 					if (returnVal == JFileChooser.APPROVE_OPTION) {
 						license = licenseFC.getSelectedFile();
+						changelogManager.setLincense(license);
 						// TODO: Handle Open File
 						customLicenseTF.setText(license.getName());
 						customLicenseTF.setEnabled(true);
@@ -202,7 +205,7 @@ public class DocPanel extends JPanel {
 				ChangelogEntry changelogEntry = new ChangelogEntry(pckgTF.getText(), verTF.getText(), descTF.getText(),
 						publisherTF.getText(), mailTF.getText(), time, (Stability) stability.getSelectedItem(),
 						(Urgency) urgency.getSelectedItem());
-				changelogManager.add(changelogEntry);
+				changelogManager.addEntry(changelogEntry);
 				changelog = changelogManager.changelog;
 			}
 		});

@@ -70,6 +70,16 @@ public class Main extends JFrame {
 		panel.add(btnSetBin);
 
 		JButton btnSetApp = new JButton("Set app");
+		btnSetApp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame f = new JFrame("Application");
+				f.getContentPane().add(new ApplicationPanel());
+				f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				f.pack();
+				f.setLocationRelativeTo(null);
+				f.setVisible(true);
+			}
+		});
 		btnSetApp.setBounds(208, 11, 89, 23);
 		panel.add(btnSetApp);
 

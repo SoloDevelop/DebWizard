@@ -9,6 +9,7 @@ public class ChangelogManager {
 
 	public static ChangelogManager changelogManager;
 	File changelog = null;
+	File license = null;
 	protected static final String WORKSPACE_PATH = "src" + File.separator + "deb" + File.separator + "Doc";
 
 	private ChangelogManager() {
@@ -32,7 +33,7 @@ public class ChangelogManager {
 		}
 	}
 
-	public void add(ChangelogEntry changelogEntry) {
+	public void addEntry(ChangelogEntry changelogEntry) {
 
 		try (FileWriter fw = new FileWriter(changelog, true)) { // try with resources autocloses the stream. Opens in
 																// append mode
@@ -71,6 +72,18 @@ public class ChangelogManager {
 
 	public void setChangeLog(File changelog) {
 		this.changelog = changelog;
+	}
+
+	public void setLincense(File license) {
+		this.license = license;
+	}
+
+	public void setLincenseGPL() {
+		license = new File(WORKSPACE_PATH + File.separator + "GPL");
+	}
+
+	public void setLincenseLGPL() {
+		license = new File(WORKSPACE_PATH + File.separator + "LGPL");
 	}
 
 }
