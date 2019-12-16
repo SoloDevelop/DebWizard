@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Dimension;
 
 public class Main extends JFrame {
 
@@ -38,8 +39,9 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
+		setPreferredSize(new Dimension(464, 585));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 469, 600);
+		setBounds(100, 100, 464, 585);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -49,9 +51,19 @@ public class Main extends JFrame {
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 
-		JButton btnSetControl = new JButton("Set Control");
-		btnSetControl.setBounds(10, 11, 89, 23);
-		panel.add(btnSetControl);
+		JButton btnSetDebian = new JButton("Set DEBIAN");
+		btnSetDebian.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame f = new JFrame("DEBIAN");
+				f.getContentPane().add(new DebianPanel());
+				f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				f.pack();
+				f.setLocationRelativeTo(null);
+				f.setVisible(true);
+			}
+		});
+		btnSetDebian.setBounds(10, 11, 89, 23);
+		panel.add(btnSetDebian);
 
 		JButton btnSetBin = new JButton("Set bin");
 		btnSetBin.setBounds(109, 11, 89, 23);
@@ -65,7 +77,7 @@ public class Main extends JFrame {
 		btnSetChangelog.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame f = new JFrame("Doc");
-				f.add(new DocPanel());
+				f.getContentPane().add(new DocPanel());
 				f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				f.pack();
 				f.setLocationRelativeTo(null);

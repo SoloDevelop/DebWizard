@@ -3,6 +3,7 @@ package deb;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
@@ -16,7 +17,10 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.Component;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
+import java.awt.Dimension;
 
 public class DebianPanel extends JPanel {
 	/**
@@ -29,14 +33,17 @@ public class DebianPanel extends JPanel {
 	private JTextField dependsTF;
 	private JTextField maintainterTF;
 	private JTextArea descTA;
+	private JTextPane controlTP;
+
+	ControlManager controlManager;
+	protected File control;
 
 	/**
 	 * Create the panel.
 	 */
 
-	
-
 	public DebianPanel() {
+		setPreferredSize(new Dimension(625, 355));
 		setLayout(null);
 
 		JLabel lblPackage = new JLabel("Package: ");
@@ -125,15 +132,50 @@ public class DebianPanel extends JPanel {
 		JButton btnSend = new JButton("Send");
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				Control ctrl = new Control(packageTF.getText(), versionTF.getText(),
+						(SECTION) sectionCB.getSelectedItem(), (PRIORITY) priorityCB.getSelectedItem(),
+						homepageTF.getText(), (ARCHITECTURE) architectureCB.getSelectedItem(), dependsTF.getText(),
+						maintainterTF.getText(), descTA.getText());
+
+				controlManager = ControlManager.getSingletonInstance(ctrl);
+				control = controlManager.control;
+				btnSend.setEnabled(false);
+
 			}
 		});
-		btnSend.setBounds(351, 265, 89, 23);
+		btnSend.setBounds(162, 320, 89, 23);
 		add(btnSend);
 
 		JButton btnClear = new JButton("Clear");
-		btnClear.setBounds(351, 224, 89, 23);
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to wipe the data?", "",
+						JOptionPane.YES_NO_OPTION);
+				if (reply == JOptionPane.YES_OPTION) {
+					if (control != null) {
+						controlManager.clear();
+					} else
+						System.out.println("Nothing to clear.");
+				}
+			}
+		});
+		btnClear.setBounds(12, 320, 89, 23);
 		add(btnClear);
+
+		controlTP = new JTextPane();
+		controlTP.setEditable(false);
+		controlTP.setBounds(306, 12, 309, 276);
+		add(controlTP);
+
+		JButton btnRefresh = new JButton("Refresh");
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//System.out.println(controlManager.getText());
+				controlTP.setText(controlManager.getText());
+			}
+		});
+		btnRefresh.setBounds(407, 320, 89, 23);
+		add(btnRefresh);
 
 	}
 }
