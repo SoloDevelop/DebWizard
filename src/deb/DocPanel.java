@@ -2,6 +2,7 @@ package deb;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
@@ -15,7 +16,6 @@ import javax.swing.DefaultComboBoxModel;
 import deb.ChangelogEntry.Stability;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.awt.event.ActionEvent;
 import deb.ChangelogEntry.Urgency;
@@ -203,6 +203,7 @@ public class DocPanel extends JPanel {
 						publisherTF.getText(), mailTF.getText(), time, (Stability) stability.getSelectedItem(),
 						(Urgency) urgency.getSelectedItem());
 				changelogManager.add(changelogEntry);
+				changelog = changelogManager.changelog;
 			}
 		});
 		btnAddEntry.setBounds(317, 255, 89, 23);
@@ -232,12 +233,12 @@ public class DocPanel extends JPanel {
 		rdbtnCLCustom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newChgLogEntryPanel.setVisible(false);
-				if (e.getSource() == rdbtnLCustom) {
+				if (e.getSource() == rdbtnCLCustom) {
 					int returnVal = changelogFC.showOpenDialog(DocPanel.this); // Parent = Panel
 
 					if (returnVal == JFileChooser.APPROVE_OPTION) {
 						changelogManager.setChangeLog(changelogFC.getSelectedFile());
-						// changelog = changelogFC.getSelectedFile();
+						changelog = changelogManager.changelog;
 						// changelogManager = ChangelogManager.getSingletonInstance();
 						// TODO: Handle Open File
 						customLicenseTF.setText(changelog.getName());
@@ -262,7 +263,10 @@ public class DocPanel extends JPanel {
 		JButton btnRefresh = new JButton("Refresh");
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changelogTP.setText(changelogManager.getText());
+				if (changelog != null)
+					changelogTP.setText(changelogManager.getText());
+				else
+					System.out.println("Nothing selected.");
 			}
 		});
 		btnRefresh.setBounds(417, 8, 73, 23);
@@ -271,9 +275,15 @@ public class DocPanel extends JPanel {
 		JButton btnClearChgl = new JButton("Clear");
 		btnClearChgl.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				changelogManager.clear();
-				changelogManager.getText();
+				int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to wipe the data?", "",
+						JOptionPane.YES_NO_OPTION);
+				if (reply == JOptionPane.YES_OPTION) {
+					if (changelog != null) {
+						changelogManager.clear();
+						changelogManager.getText();
+					} else
+						System.out.println("Nothing to clear.");
+				}
 			}
 		});
 		btnClearChgl.setBounds(334, 8, 73, 23);

@@ -8,11 +8,10 @@ import java.io.IOException;
 public class ChangelogManager {
 
 	public static ChangelogManager changelogManager;
-	File changelog;
+	File changelog = null;
 	protected static final String WORKSPACE_PATH = "src" + File.separator + "deb" + File.separator + "Doc";
 
 	private ChangelogManager() {
-		changelog = DocPanel.changelog; // TODO: This ugly
 	}
 
 	public static ChangelogManager getSingletonInstance() {
@@ -62,7 +61,9 @@ public class ChangelogManager {
 	}
 
 	public void clear() {
-		try (FileReader fileReader = new FileReader(changelog)) { // try with resources autocloses the stream
+		try (FileWriter fr = new FileWriter(changelog)) {
+			// try with resources autocloses the stream
+			fr.write("");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

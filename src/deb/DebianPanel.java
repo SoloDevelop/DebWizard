@@ -5,7 +5,18 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
+
+import deb.Control.ARCHITECTURE;
+import deb.Control.PRIORITY;
+import deb.Control.SECTION;
+
 import java.awt.Color;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.Component;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class DebianPanel extends JPanel {
 	/**
@@ -13,17 +24,18 @@ public class DebianPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1424338093312621692L;
 	private JTextField packageTF;
-	private JTextField sectionTF;
-	private JTextField priorityTF;
 	private JTextField versionTF;
 	private JTextField homepageTF;
-	private JTextField architectureTF;
 	private JTextField dependsTF;
 	private JTextField maintainterTF;
+	private JTextArea descTA;
 
 	/**
 	 * Create the panel.
 	 */
+
+	
+
 	public DebianPanel() {
 		setLayout(null);
 
@@ -55,8 +67,8 @@ public class DebianPanel extends JPanel {
 		lblDepends.setBounds(12, 174, 88, 15);
 		add(lblDepends);
 
-		JLabel lblMaintainer = new JLabel("Maintainer: ");
-		lblMaintainer.setBounds(12, 201, 88, 15);
+		JLabel lblMaintainer = new JLabel("Maintainer <mail>: ");
+		lblMaintainer.setBounds(12, 201, 110, 15);
 		add(lblMaintainer);
 
 		JLabel lblDescription = new JLabel("Description: ");
@@ -68,16 +80,6 @@ public class DebianPanel extends JPanel {
 		add(packageTF);
 		packageTF.setColumns(10);
 
-		sectionTF = new JTextField();
-		sectionTF.setBounds(140, 64, 124, 19);
-		add(sectionTF);
-		sectionTF.setColumns(10);
-
-		priorityTF = new JTextField();
-		priorityTF.setBounds(140, 91, 124, 19);
-		add(priorityTF);
-		priorityTF.setColumns(10);
-
 		versionTF = new JTextField();
 		versionTF.setBounds(140, 37, 124, 19);
 		add(versionTF);
@@ -87,11 +89,6 @@ public class DebianPanel extends JPanel {
 		homepageTF.setBounds(140, 116, 124, 19);
 		add(homepageTF);
 		homepageTF.setColumns(10);
-
-		architectureTF = new JTextField();
-		architectureTF.setBounds(140, 145, 124, 19);
-		add(architectureTF);
-		architectureTF.setColumns(10);
 
 		dependsTF = new JTextField();
 		dependsTF.setBounds(140, 172, 124, 19);
@@ -103,10 +100,40 @@ public class DebianPanel extends JPanel {
 		add(maintainterTF);
 		maintainterTF.setColumns(10);
 
-		JTextArea descTA = new JTextArea();
+		descTA = new JTextArea();
+		descTA.setAlignmentY(Component.TOP_ALIGNMENT);
+		descTA.setAlignmentX(Component.LEFT_ALIGNMENT);
 		descTA.setBorder(new LineBorder(Color.GRAY));
 		descTA.setBounds(140, 228, 124, 60);
 		add(descTA);
+
+		JComboBox<SECTION> sectionCB = new JComboBox<SECTION>();
+		sectionCB.setModel(new DefaultComboBoxModel<SECTION>(SECTION.values()));
+		sectionCB.setBounds(140, 62, 124, 22);
+		add(sectionCB);
+
+		JComboBox<PRIORITY> priorityCB = new JComboBox<PRIORITY>();
+		priorityCB.setModel(new DefaultComboBoxModel<PRIORITY>(PRIORITY.values()));
+		priorityCB.setBounds(140, 89, 124, 22);
+		add(priorityCB);
+
+		JComboBox<ARCHITECTURE> architectureCB = new JComboBox<ARCHITECTURE>();
+		architectureCB.setModel(new DefaultComboBoxModel<ARCHITECTURE>(ARCHITECTURE.values()));
+		architectureCB.setBounds(140, 140, 124, 22);
+		add(architectureCB);
+
+		JButton btnSend = new JButton("Send");
+		btnSend.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnSend.setBounds(351, 265, 89, 23);
+		add(btnSend);
+
+		JButton btnClear = new JButton("Clear");
+		btnClear.setBounds(351, 224, 89, 23);
+		add(btnClear);
 
 	}
 }
