@@ -21,7 +21,7 @@ public class ChangelogManager {
 		return changelogManager;
 	}
 
-	public void createChangelog() {
+	public void mkChangelog() {
 		if (changelog == null) // TODO: make sure this executes before any call to the file
 			changelog = new File(WORKSPACE_PATH + File.separator + "changelog");
 		try {

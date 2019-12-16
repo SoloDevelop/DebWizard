@@ -11,13 +11,12 @@ public class ControlManager {
 	File control = null;
 	public static final String WORKSPACE_PATH = "src" + File.separator + "deb" + File.separator + "DEBIAN";
 
-	private ControlManager(Control control) {
-		this.control = mkControl(control);
+	private ControlManager() {
 	}
 
-	public static ControlManager getSingletonInstance(Control control) {
+	public static ControlManager getSingletonInstance() {
 		if (controlManager == null) {
-			controlManager = new ControlManager(control);
+			controlManager = new ControlManager();
 		}
 		return controlManager;
 	}
@@ -47,15 +46,27 @@ public class ControlManager {
 		return s;
 	}
 
-	public File mkControl(Control ctrl) {
+	public void mkControl() {
 		if (control == null) // TODO: make sure this executes before any call to the file
 			control = new File(WORKSPACE_PATH + File.separator + "CONTROL");
 		try {
-			System.out.println(control.createNewFile());
+			control.createNewFile();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+	}
+
+	public File setControl(Control ctrl) {
+		try (FileWriter fw = new FileWriter(control)) { // try with resources autocloses the stream.
+			fw.write(ctrl.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return control;
+	}
+
+	public void setControl(File control) {
+		this.control = control;
 	}
 
 }

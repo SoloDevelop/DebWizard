@@ -221,7 +221,7 @@ public class DocPanel extends JPanel {
 		buttonGroup.add(rdbtnNew);
 		rdbtnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changelogManager.createChangelog();
+				changelogManager.mkChangelog();
 				newChgLogEntryPanel.setVisible(true);
 			}
 		});

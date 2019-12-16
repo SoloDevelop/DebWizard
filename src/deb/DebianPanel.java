@@ -43,6 +43,9 @@ public class DebianPanel extends JPanel {
 	 */
 
 	public DebianPanel() {
+
+		controlManager = ControlManager.getSingletonInstance();
+
 		setPreferredSize(new Dimension(625, 355));
 		setLayout(null);
 
@@ -137,9 +140,8 @@ public class DebianPanel extends JPanel {
 						homepageTF.getText(), (ARCHITECTURE) architectureCB.getSelectedItem(), dependsTF.getText(),
 						maintainterTF.getText(), descTA.getText());
 
-				controlManager = ControlManager.getSingletonInstance(ctrl);
-				control = controlManager.control;
-				btnSend.setEnabled(false);
+				controlManager.mkControl();
+				control = controlManager.setControl(ctrl);
 
 			}
 		});
@@ -170,7 +172,7 @@ public class DebianPanel extends JPanel {
 		JButton btnRefresh = new JButton("Refresh");
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//System.out.println(controlManager.getText());
+				// System.out.println(controlManager.getText());
 				controlTP.setText(controlManager.getText());
 			}
 		});
