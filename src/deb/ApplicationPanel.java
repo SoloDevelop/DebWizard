@@ -5,6 +5,8 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
+import org.apache.commons.io.FilenameUtils;
+
 import java.awt.Color;
 import javax.swing.JTextField;
 import java.awt.Component;
@@ -16,10 +18,10 @@ import deb.Desktop.CATEGORIES;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import javax.swing.JTextPane;
@@ -55,21 +57,21 @@ public class ApplicationPanel extends JPanel {
 		JButton btnUpload = new JButton("Upload icon");
 		btnUpload.addActionListener(new ActionListener() {
 
-			private Path iconPath = Paths.get(ApplicationManager.WORKSPACE_PATH);
-
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == btnUpload) {
 					int returnVal = iconFC.showOpenDialog(ApplicationPanel.this); // Parent = Panel
 
 					if (returnVal == JFileChooser.APPROVE_OPTION) {
 						icon = iconFC.getSelectedFile();
+
+						Path iconPath = Paths.get(ApplicationManager.WORKSPACE_PATH + File.separator
+								+ FieldManager.packageName + "." + FilenameUtils.getExtension(icon.toString()));
 						try {
-							Files.copy(icon.toPath(), iconPath);
+							Files.copy(icon.toPath(), iconPath, StandardCopyOption.REPLACE_EXISTING);
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-
 					} else {
 						// TODO: Handle cancel
 						System.out.println("Open command cancelled by user.");

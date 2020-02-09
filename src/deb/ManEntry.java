@@ -22,7 +22,7 @@ public class ManEntry {
 
 	String desc;
 
-	ArrayList<OptEntry> options;
+	ArrayList<OptEntry> options = new ArrayList<OptEntry>();
 
 	public ManEntry(String name, String synopsis, String desc) {
 		this.name = name;

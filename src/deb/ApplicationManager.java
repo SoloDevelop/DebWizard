@@ -50,17 +50,13 @@ public class ApplicationManager {
 
 	public void mkDesktop() {
 		if (desktopFile == null) // TODO: make sure this executes before any call to the file
-			desktopFile = new File(WORKSPACE_PATH + File.separator + getFileName() + ".desktop");
+			//desktopFile = new File(WORKSPACE_PATH + File.separator + FieldManager.packageName + ".desktop");
+			desktopFile = DirectoryManager.mkDesktop();
 		try {
 			desktopFile.createNewFile();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-	}
-
-	private String getFileName() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public File setDesktop(Desktop desk) {

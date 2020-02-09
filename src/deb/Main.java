@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
+import javax.swing.JTextField;
 
 public class Main extends JFrame {
 
@@ -18,6 +19,7 @@ public class Main extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JTextField pckNameTF;
 
 	/**
 	 * Launch the application.
@@ -62,11 +64,11 @@ public class Main extends JFrame {
 				f.setVisible(true);
 			}
 		});
-		btnSetDebian.setBounds(10, 11, 89, 23);
+		btnSetDebian.setBounds(10, 11, 114, 23);
 		panel.add(btnSetDebian);
 
 		JButton btnSetBin = new JButton("Set bin");
-		btnSetBin.setBounds(109, 11, 89, 23);
+		btnSetBin.setBounds(153, 11, 89, 23);
 		panel.add(btnSetBin);
 
 		JButton btnSetApp = new JButton("Set app");
@@ -80,7 +82,7 @@ public class Main extends JFrame {
 				f.setVisible(true);
 			}
 		});
-		btnSetApp.setBounds(208, 11, 89, 23);
+		btnSetApp.setBounds(278, 11, 89, 23);
 		panel.add(btnSetApp);
 
 		JButton btnSetChangelog = new JButton("Set changelog and license");
@@ -94,16 +96,43 @@ public class Main extends JFrame {
 				f.setVisible(true);
 			}
 		});
-		btnSetChangelog.setBounds(208, 45, 159, 23);
+		btnSetChangelog.setBounds(246, 46, 184, 23);
 		panel.add(btnSetChangelog);
 
 		JButton btnSetManual = new JButton("Set manual");
-		btnSetManual.setBounds(10, 45, 89, 23);
+		btnSetManual.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				JFrame f = new JFrame("Manual");
+				f.getContentPane().add(new ManPanel());
+				f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				f.pack();
+				f.setLocationRelativeTo(null);
+				f.setVisible(true);
+			}
+		});
+	
+
+		btnSetManual.setBounds(10, 45, 114, 23);
 		panel.add(btnSetManual);
 
 		JButton btnSetJar = new JButton("Set jar");
-		btnSetJar.setBounds(109, 45, 89, 23);
+		btnSetJar.setBounds(128, 45, 89, 23);
 		panel.add(btnSetJar);
-	}
 
+		pckNameTF = new JTextField();
+		pckNameTF.setText("solfac");
+		pckNameTF.setBounds(10, 117, 124, 19);
+		panel.add(pckNameTF);
+		pckNameTF.setColumns(10);
+
+		JButton btnSetPckgName = new JButton("Set pckg name");
+		btnSetPckgName.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				FieldManager.packageName = pckNameTF.getText();
+			}
+		});
+		btnSetPckgName.setBounds(12, 148, 114, 25);
+		panel.add(btnSetPckgName);
+	}
 }
