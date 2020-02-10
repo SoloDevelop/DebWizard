@@ -8,7 +8,7 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="jgoodies-common-1.8.0.jar" sourcepath="jgoodies-common-1.8.0-sources.jar"/>
 	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
-	<classpathentry kind="lib" path="/media/ausias/1TB-Fa/m07/commons-io-2.6-src.zip"/>
-	<classpathentry kind="lib" path="/media/ausias/1TB-Fa/m07/commons-io-2.6/commons-io-2.6.jar"/>
+	<classpathentry kind="lib" path="G:/m07/commons-io-2.6/commons-io-2.6.jar"/>
+	<classpathentry kind="lib" path="G:/m07/commons-io-2.6-src.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

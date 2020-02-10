@@ -64,8 +64,8 @@ public class ManManager {
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-		}
-		else System.out.println("Section is NULL");
+		} else
+			System.out.println("Section is NULL");
 	}
 
 	public File add(ManEntry man) {
@@ -83,6 +83,7 @@ public class ManManager {
 
 	public void setSection(SECTION section) {
 		this.manSection = section;
+		FieldManager.manSection = section.ordinal();
 	}
 
 }

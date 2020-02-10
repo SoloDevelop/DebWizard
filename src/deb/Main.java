@@ -6,8 +6,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import javax.swing.JTextField;
@@ -102,7 +106,7 @@ public class Main extends JFrame {
 		JButton btnSetManual = new JButton("Set manual");
 		btnSetManual.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				JFrame f = new JFrame("Manual");
 				f.getContentPane().add(new ManPanel());
 				f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -111,7 +115,6 @@ public class Main extends JFrame {
 				f.setVisible(true);
 			}
 		});
-	
 
 		btnSetManual.setBounds(10, 45, 114, 23);
 		panel.add(btnSetManual);
@@ -134,5 +137,30 @@ public class Main extends JFrame {
 		});
 		btnSetPckgName.setBounds(12, 148, 114, 25);
 		panel.add(btnSetPckgName);
+
+		// Directory Filechooser
+
+		JFileChooser directoryFC = new JFileChooser();
+		directoryFC.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		directoryFC.setAcceptAllFileFilterUsed(false);
+
+		JButton btnSetDir = new JButton("Set dir");
+		btnSetDir.setBounds(227, 149, 89, 23);
+		btnSetDir.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == btnSetDir) {
+					int returnVal = directoryFC.showOpenDialog(contentPane);
+
+					if (returnVal == JFileChooser.APPROVE_OPTION) {
+						File dir = directoryFC.getSelectedFile();
+						DirectoryManager.SetRootDir(dir);
+						DirectoryManager.createDirTree();
+					}
+				}
+			}
+		});
+		panel.add(btnSetDir);
+
 	}
 }

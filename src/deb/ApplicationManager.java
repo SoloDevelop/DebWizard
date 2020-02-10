@@ -48,9 +48,10 @@ public class ApplicationManager {
 		return s;
 	}
 
-	public void mkDesktop() {
+	public void mkDesktop() {//DEPRECATED
 		if (desktopFile == null) // TODO: make sure this executes before any call to the file
-			//desktopFile = new File(WORKSPACE_PATH + File.separator + FieldManager.packageName + ".desktop");
+			// desktopFile = new File(WORKSPACE_PATH + File.separator +
+			// FieldManager.packageName + ".desktop");
 			desktopFile = DirectoryManager.mkDesktop();
 		try {
 			desktopFile.createNewFile();
@@ -59,7 +60,13 @@ public class ApplicationManager {
 		}
 	}
 
-	public File setDesktop(Desktop desk) {
+	public File mkDesktop(Desktop desk) {
+		if (desktopFile == null)
+			desktopFile = DirectoryManager.mkDesktop();
+		return desktopFile;
+	}
+
+	public File setDesktop(Desktop desk) { //DEPRECATED
 		try (FileWriter fw = new FileWriter(desktopFile)) { // try with resources autocloses the stream.
 			fw.write(desk.toString());
 		} catch (IOException e) {

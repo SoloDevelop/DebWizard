@@ -136,8 +136,7 @@ public class ApplicationPanel extends JPanel {
 				Desktop desk = new Desktop(nameTF.getText(), execTF.getText(), icon.toPath(),
 						(TYPE) typeCB.getSelectedItem(), (CATEGORIES) categoriesCB.getSelectedItem(),
 						commentTF.getText());
-				applicationManager.mkDesktop();
-				desktop = applicationManager.setDesktop(desk);
+				desktop = applicationManager.mkDesktop(desk);
 			}
 		});
 		btnSend.setBounds(468, 466, 89, 23);
@@ -154,7 +153,7 @@ public class ApplicationPanel extends JPanel {
 		JButton btnRefresh = new JButton("Refresh");
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (desktop != null)
+				if (applicationManager.desktopFile != null)
 					desktopTP.setText(applicationManager.getText());
 				else
 					System.out.println("Nothing to show.");
